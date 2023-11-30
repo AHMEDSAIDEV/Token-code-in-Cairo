@@ -1,0 +1,13 @@
+contract Token:
+  data balances : Map(Address, Uint256)
+
+  public function init():
+    balances[msg.sender] = 1000
+
+  public function transfer(to: Address, amount: Uint256):
+    require(balances[msg.sender] >= amount, "Insufficient balance")
+    balances[msg.sender] -= amount
+    balances[to] += amount
+
+  public function getBalance(owner: Address) -> Uint256:
+    return balances[owner]
